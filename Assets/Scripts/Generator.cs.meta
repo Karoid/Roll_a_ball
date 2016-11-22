@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 86eaa24da5457cd43b0a2f4d40392fd6
+timeCreated: 1479735945
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - food: {fileID: 1000010507345624, guid: 45f1765738a6102419f9de57bb70001a, type: 2}
+  - speeder: {fileID: 1000010507345624, guid: dbdea4350f7e5fa43952613810da22ee, type: 2}
+  - power: {fileID: 1000010507345624, guid: ecdc7c59a475d944ab2f46043fe86838, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -3,22 +3,30 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerController : MonoBehaviour {
-    public float speed;
+    public float speed = 30;
     public Text countText;
-    public float size;
-    private Rigidbody rb;
+    private float size = 1;
+    public Rigidbody rb;
     private int count;
+    private int timer;
 	// Use this for initialization
 	void Start () {
-        rb = GetComponent<Rigidbody>();
         count = 0;
         countText.text = "count: " + count;
-        size = 1;
+        timer = 0;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if (timer>0)
+        {
+            timer--;
+        }
+        else
+        {
+            timer = 0;
+            speed = 30;
+        }
     }
 
     void FixedUpdate()
@@ -27,8 +35,13 @@ public class PlayerController : MonoBehaviour {
         float moveVertical = Input.GetAxis("Vertical");
 
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
-
         rb.AddForce(movement * speed / size);
+
+        if (transform.position.y < 0)
+        {
+            transform.position = new Vector3(0f,0f,0f);
+        }
+        
     }
     void OnTriggerEnter(Collider other)
     {
@@ -38,12 +51,31 @@ public class PlayerController : MonoBehaviour {
             count++;
             aftercount();
         }
+        if (other.gameObject.CompareTag("Pick Up(speeder)"))
+        {
+            Destroy(other.gameObject);
+            afterspeed();
+        }
+        if (other.gameObject.CompareTag("Pick Up(power)"))
+        {
+            Destroy(other.gameObject);
+            afterpower();
+        }
     }
 
     void aftercount()
     {
-        size = (Mathf.Log10(count + 1) + 1);
+        size = (Mathf.Log10(count + 1) + 1) + count*0.1f;
         countText.text = "count: " + count;
         transform.localScale = new Vector3(size, size, size);
+    }
+    void afterspeed()
+    {
+        timer = 1000;
+        speed *= 2;
+    }
+    void afterpower()
+    {
+
     }
 }

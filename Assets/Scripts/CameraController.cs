@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        transform.position = player.transform.position + offset;
+        transform.position = player.transform.position + offset + new Vector3(0,player.transform.localScale.y,-player.transform.localScale.z);
 	}
     void OnTriggerEnter(Collider other)
     {
