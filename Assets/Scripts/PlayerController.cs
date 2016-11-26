@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerController : MonoBehaviour {
     public float speed = 30;
     public Text countText;
-    private float size = 1;
+    public float size = 1;
     public Rigidbody rb;
     private int count;
     private int timer;
@@ -37,11 +37,10 @@ public class PlayerController : MonoBehaviour {
         Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
         rb.AddForce(movement * speed / size);
 
-        if (transform.position.y < 0)
+		if (Mathf.Pow(transform.position.x,2f) > Mathf.Pow(50f,2f) || Mathf.Pow(transform.position.z,2f) > Mathf.Pow(50f,2f))
         {
-            transform.position = new Vector3(0f,0f,0f);
+			transform.position = new Vector3(0f,0f,0f);
         }
-        
     }
     void OnTriggerEnter(Collider other)
     {
@@ -61,6 +60,14 @@ public class PlayerController : MonoBehaviour {
             Destroy(other.gameObject);
             afterpower();
         }
+		if (other.gameObject.CompareTag("Player")) {
+			if (other.gameObject.GetComponent<PlayerController> ().size > size) {
+				initiate ();
+			} else {
+				count++;
+				aftercount();
+			}
+		}
     }
 
     void aftercount()
@@ -73,9 +80,17 @@ public class PlayerController : MonoBehaviour {
     {
         timer = 1000;
         speed *= 2;
+		if (speed/size > 120f) {
+			speed = 120f * size;
+		}
     }
     void afterpower()
     {
 
     }
+	void initiate(){
+		transform.position = new Vector3(0f,0f,0f);
+		size = 1;
+		speed = 30;
+	}
 }

@@ -9,27 +9,36 @@ public class NetworkManager : MonoBehaviour
     private string food = "Pick up(food)";
     private string speeder = "Pick up(speeder)";
     private string power = "Pick up(power)";
+	private int food_count;
+	private int speeder_count;
+	private int power_count;
     public Transform SpawnPoint;
     // Use this for initialization
     void Start()
     {
         PhotonNetwork.ConnectUsingSettings(VERSION);
         PhotonNetwork.automaticallySyncScene = true;
+		food_count = 0;
+		speeder_count = 0;
+		power_count = 0;
     }
 
     void Update()
     {
-        if (Random.value < 0.005)
+        if (Random.value < 0.005 && food_count < 30)
         {
-            GameObject childObject1 = PhotonNetwork.Instantiate(food, new Vector3(Random.value * 100 - 50f, 0.5f, Random.value * 100 - 50f), Quaternion.identity, 0) as GameObject;
+            PhotonNetwork.Instantiate(food, new Vector3(Random.value * 100 - 50f, 0.5f, Random.value * 100 - 50f), Quaternion.identity, 0);
+			food_count++;
         }
-        if (Random.value < 0.0005)
+		if (Random.value < 0.0005 && speeder_count < 10)
         {
-            GameObject childObject2 = PhotonNetwork.Instantiate(speeder, new Vector3(Random.value * 100 - 50f, 0.5f, Random.value * 100 - 50f), Quaternion.identity, 0) as GameObject;
+            PhotonNetwork.Instantiate(speeder, new Vector3(Random.value * 100 - 50f, 0.5f, Random.value * 100 - 50f), Quaternion.identity, 0);
+			speeder_count++;
         }
-        if (Random.value < 0.0001)
+		if (Random.value < 0.0001 && power_count < 5)
         {
-            GameObject childObject3 = PhotonNetwork.Instantiate(power, new Vector3(Random.value * 100 - 50f, 0.5f, Random.value * 100 - 50f), Quaternion.identity, 0) as GameObject;
+            PhotonNetwork.Instantiate(power, new Vector3(Random.value * 100 - 50f, 0.5f, Random.value * 100 - 50f), Quaternion.identity, 0);
+			power_count++;
         }
     }
 

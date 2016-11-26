@@ -12,6 +12,8 @@ public class NetworkPlayer : Photon.MonoBehaviour {
             myCamera.SetActive(true);
             myCanvas.SetActive(true);
             myPlayer.GetComponent<PlayerController>().enabled = true;
+			myPlayer.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+			myPlayer.GetComponent<SphereCollider>().isTrigger= false;
         }
 	}
 }
